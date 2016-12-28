@@ -81,7 +81,7 @@ public class EnemyController extends Controller implements Body {
     @Override
     public void onContact(Body other) {
         if(other instanceof NinjaController){
-
+            this.getModel().setAlive(false);
         }
     }
 }

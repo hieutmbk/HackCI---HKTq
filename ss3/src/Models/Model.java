@@ -6,16 +6,6 @@ import java.awt.*;
  * Created by minhh on 17/12/2016.
  */
 public class Model {
-    private static boolean onGame = true;
-
-    public static boolean isOnGame() {
-        return onGame;
-    }
-
-    public static void setOnGame(boolean onGame) {
-        Model.onGame = onGame;
-    }
-
     private int x;
     private int y;
     private int width;

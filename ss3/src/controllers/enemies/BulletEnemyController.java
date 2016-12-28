@@ -3,6 +3,7 @@ package controllers.enemies;
 import Models.Model;
 import controllers.Body;
 import controllers.Controller;
+import controllers.NinjaController;
 import controllers.managers.BodyManager;
 import utils.Utils;
 import views.BaseView;
@@ -37,6 +38,8 @@ public class BulletEnemyController extends Controller implements Body{
 
     @Override
     public void onContact(Body other) {
-
+        if(other instanceof NinjaController){
+            this.getModel().setAlive(false);
+        }
     }
 }

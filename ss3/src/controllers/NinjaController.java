@@ -48,9 +48,6 @@ public class NinjaController extends  Controller implements Body {
     }
     public void run(){
         super.run();
-        if(live < 1){
-            Model.setOnGame(false);
-        }
 
         for(DartsController dartsController : this.dartsControllers){
             dartsController.run();
@@ -61,7 +58,6 @@ public class NinjaController extends  Controller implements Body {
             if(!dartsController.getModel().isAlive()) iterator.remove();
         }
         if(getModel().isAlive() == false) {
-            System.out.println("hhheee");
             count++;
             if (live >= 1 && count > 80) {
                 count = 0;
@@ -136,6 +132,8 @@ public class NinjaController extends  Controller implements Body {
                 }
         }
     }
+
+
 
 
     @Override

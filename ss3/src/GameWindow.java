@@ -90,32 +90,40 @@ public class GameWindow extends Frame implements  Runnable {
 
     @Override
     public void update(Graphics g) {
-        Graphics backBufferGraphics = backBuffer.getGraphics();
-        backBufferGraphics.drawImage(background,0,0,920,720,null);
-        ninjaController.draw(backBufferGraphics);
-        treeManager.draw(backBufferGraphics);
-        enemyControllerManager.draw(backBufferGraphics);
-        ControllerManager.bulletEnemy.draw(backBufferGraphics);
-        g.drawImage(backBuffer,0,0,920,720,null);
+        if(ninjaController.getLive() > 0) {
+            Graphics backBufferGraphics = backBuffer.getGraphics();
+            backBufferGraphics.drawImage(background, 0, 0, 920, 720, null);
+            ninjaController.draw(backBufferGraphics);
+            treeManager.draw(backBufferGraphics);
+            enemyControllerManager.draw(backBufferGraphics);
+            ControllerManager.bulletEnemy.draw(backBufferGraphics);
+            g.drawImage(backBuffer, 0, 0, 920, 720, null);
+        }
+        else{
+            g.setFont(new Font("Algerian", Font.BOLD, 50));
+            g.setColor(Color.RED);
+            g.drawString("Game Over", 300, 400);
+        }
 
     }
 
     @Override
     public void run() {
-        while (true){
-            if(Model.isOnGame()) {
-                try {
-                    this.repaint();
-                    Thread.sleep(17);
-                    ninjaController.run();
-                    treeManager.run();
-                    enemyControllerManager.run();
-                    ControllerManager.bulletEnemy.run();
-                    BodyManager.instance.checkContact();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        while (true) {
+
+            try {
+                this.repaint();
+                Thread.sleep(17);
+                ninjaController.run();
+                treeManager.run();
+                enemyControllerManager.run();
+                ControllerManager.bulletEnemy.run();
+                BodyManager.instance.checkContact();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+
+
         }
     }
 }
