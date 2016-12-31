@@ -9,7 +9,7 @@ import utils.Utils;
 /**
  * Created by QuanLA on 12/17/2016.
  */
-public class TreeController extends Controller{
+public class TreeController extends Controller implements BaseController{
     public TreeController(Model model, BaseView view) {
         super(model, view);
     }

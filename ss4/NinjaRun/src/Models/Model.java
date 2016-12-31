@@ -11,6 +11,7 @@ public class Model {
     private int width;
     private int height;
     private boolean alive = true;
+    public static boolean onGame = true;
 
     public Model(int x, int y, int width, int height) {
         this.x = x;

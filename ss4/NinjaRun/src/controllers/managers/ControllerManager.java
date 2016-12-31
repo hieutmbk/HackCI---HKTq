@@ -1,5 +1,6 @@
 package controllers.managers;
 
+import controllers.BaseController;
 import controllers.Controller;
 
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.util.Vector;
 /**
  * Created by QuanLA on 12/17/2016.
  */
-public class ControllerManager {
+public class ControllerManager implements BaseController {
     protected Vector<Controller> controllers;
 
     public ControllerManager() {

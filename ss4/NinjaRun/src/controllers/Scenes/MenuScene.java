@@ -17,14 +17,12 @@ public class MenuScene extends GameScene {
     }
 
     @Override
-    public void draw(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.setFont(new Font("Time and Roman", Font.BOLD, 40));
-        g.drawString("Press any key to play", 250, 300);
+    public void update(Graphics g) {
+        g.drawImage(Utils.loadImage("resources/menu.png"),0, 0, 920, 720, null);
     }
 
     @Override
-    public void keyPress(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         this.sceneListener.replaceScene(
                 new PlayScene(),
                 true

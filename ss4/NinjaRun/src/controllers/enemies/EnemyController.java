@@ -20,6 +20,7 @@ import java.util.Vector;
 public class EnemyController extends Controller implements Body {
     protected MoveBehavior moveBehavior;
     protected ShootBehavior shootBehavior;
+
     public static final int X1 = 230;
     public static final int X2 = 360;
     public static final int X3 = 540;

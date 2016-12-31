@@ -18,7 +18,7 @@ import java.util.Vector;
 /**
  * Created by minhh on 17/12/2016.
  */
-public class NinjaController extends  Controller implements Body {
+public class NinjaController extends  Controller implements Body, BaseController {
     private KeySetting keySetting;
     private Vector<DartsController> dartsControllers;
     private int inTree1 = 0;
@@ -60,7 +60,7 @@ public class NinjaController extends  Controller implements Body {
         }
         if(getModel().isAlive() == false) {
             count++;
-            if (live >= 1 && count > 80) {
+            if (this.getLive() >= 1 && count > 80) {
                 count = 0;
                 this.getModel().setAlive(true);
                 BodyManager.instance.register(this);
@@ -145,8 +145,8 @@ public class NinjaController extends  Controller implements Body {
 
     @Override
     public void onContact(Body other) {
-        if(other instanceof BulletEnemyController||other instanceof EnemyController){
-            live--;
+        if(other instanceof BulletEnemyController || other instanceof EnemyController){
+            this.live--;
             this.getModel().setAlive(false);
         }
     }

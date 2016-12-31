@@ -1,15 +1,17 @@
 package controllers.managers;
 
+import controllers.BaseController;
 import controllers.Body;
 import Models.Model;
 
+import java.awt.*;
 import java.util.Iterator;
 import java.util.Vector;
 
 /**
  * Created by ToanTV on 12/27/2016.
  */
-public class BodyManager {
+public class BodyManager implements BaseController {
     private Vector<Body> bodies;
 
     public static final BodyManager instance = new BodyManager();
@@ -21,7 +23,7 @@ public class BodyManager {
     public void register(Body body){
         this.bodies.add(body);
     }
-    public void checkContact() {
+    public void run() {
 
         for(int i = 0; i < bodies.size() -  1; i++){
             for(int j = i+1; j < bodies.size(); j++){
@@ -46,4 +48,10 @@ public class BodyManager {
     public void removeAll(){
         this.bodies = new Vector<>();
     }
+
+    @Override
+    public void draw(Graphics g) {
+
+    }
+
 }

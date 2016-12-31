@@ -18,10 +18,9 @@ public abstract class GameScene {
     }
 
     public abstract void run();
-    public void draw(Graphics g){};
-    public void keyPress(KeyEvent e){};
+    public abstract void update(Graphics g);
+    public abstract void keyPressed(KeyEvent e);
 
-    public void mouseClicked(MouseEvent e) {
-    };
+    public abstract void mouseClicked(MouseEvent e);
 
 }

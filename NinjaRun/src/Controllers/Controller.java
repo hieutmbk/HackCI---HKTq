@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Created by minhh on 17/12/2016.
  */
-public class Controller {
+public class Controller implements BaseController{
     protected BaseView view;
     protected Model model;
 

@@ -5,6 +5,7 @@ import controllers.NinjaController;
 import controllers.managers.BodyManager;
 import controllers.managers.ControllerManager;
 import controllers.managers.EnemyControllerManager;
+import controllers.managers.GiftControllerManager;
 import utils.Utils;
 
 import java.awt.*;
@@ -18,7 +19,6 @@ import java.util.Vector;
 public class GameOverScene extends GameScene {
     Image gameOver = Utils.loadImage("resources/gameover-sheet0.png");
     Image restart = Utils.loadImage("resources/btnrestart-sheet0.png");
-    MouseEvent e;
     Rectangle recRestart ;
     @Override
     public void run() {
@@ -26,10 +26,15 @@ public class GameOverScene extends GameScene {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void update(Graphics g) {
         g.drawImage(gameOver,0, 0, 920, 720, null);
         //g.fillRect(450,300,150,50);
         g.drawImage(restart,450,300,150,150, null);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
     }
 
     public boolean checkMouse(MouseEvent e) {
@@ -43,6 +48,7 @@ public class GameOverScene extends GameScene {
         ControllerManager.bulletEnemy.removeAll();
         BodyManager.instance.removeAll();
         EnemyControllerManager.instance.removeAll();
+        GiftControllerManager.instance.removeAll();
         BodyManager.instance.register(NinjaController.instance);
         NinjaController.instance.getModel().setAlive(true);
         NinjaController.instance.setDartsControllers();

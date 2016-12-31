@@ -1,5 +1,6 @@
 package controllers.managers;
 
+import controllers.BaseController;
 import controllers.enemies.EnemyController;
 import controllers.enemies.TypeEnemy;
 
@@ -9,7 +10,7 @@ import java.util.Vector;
 /**
  * Created by ToanTV on 12/27/2016.
  */
-public class EnemyControllerManager extends ControllerManager{
+public class EnemyControllerManager extends ControllerManager implements BaseController{
     private int countEnemy;
     public static final EnemyControllerManager instance = new EnemyControllerManager();
     public void spawn(){

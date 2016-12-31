@@ -7,7 +7,7 @@ import views.BaseView;
 /**
  * Created by QuanLA on 12/17/2016.
  */
-public class DartsController extends Controller implements Body{
+public class DartsController extends Controller implements Body, BaseController{
     public DartsController(Model model, BaseView view) {
         super(model, view);
         BodyManager.instance.register(this);

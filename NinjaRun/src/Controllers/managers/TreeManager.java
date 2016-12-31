@@ -1,12 +1,13 @@
 package controllers.managers;
 
+import controllers.BaseController;
 import controllers.Controller;
 import controllers.TreeController;
 
 /**
  * Created by QuanLA on 12/17/2016.
  */
-public class TreeManager extends ControllerManager {
+public class TreeManager extends ControllerManager implements BaseController {
 
     public void run(){
         super.run();

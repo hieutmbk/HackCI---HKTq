@@ -9,6 +9,7 @@ import views.BaseView;
 import views.View;
 import utils.Utils;
 
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -18,9 +19,10 @@ import java.util.Vector;
 /**
  * Created by minhh on 17/12/2016.
  */
-public class NinjaController extends  Controller implements Body {
+public class NinjaController extends  Controller implements Body, BaseController {
     private KeySetting keySetting;
     private Vector<DartsController> dartsControllers;
+    private int hp;
 
     public Vector<DartsController> getDartsControllers() {
         return dartsControllers;
@@ -37,16 +39,18 @@ public class NinjaController extends  Controller implements Body {
         this.live = live;
     }
 
-    private int count;
-    public static int point = 0;
+    private int count=0;
+    private int count1=0;
+    private int point = 0;
     public static final NinjaController instance = NinjaController.creatNinja(200, 550,
-            new KeySetting(KeyEvent.VK_F, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_DOWN));
+            new KeySetting(KeyEvent.VK_F, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT));
     public int getLive() {
         return live;
     }
 
     private NinjaController(Model model, BaseView view, KeySetting keySetting) {
         super(model, view);
+        this.hp = 5;
         BodyManager.instance.register(this);
         this.keySetting = keySetting;
         this.dartsControllers = new Vector<>();
@@ -78,12 +82,14 @@ public class NinjaController extends  Controller implements Body {
                 count = 0;
                 this.getModel().setAlive(true);
                 BodyManager.instance.register(this);
+                hp = 5;
             }
         }
         else if(getModel().isAlive()){
-            count ++;
-            if(count % 58 == 0){
+            count1 ++;
+            if(count1 % 58 == 0){
                 point++;
+                count1 = 0;
             }
         }
     }
@@ -95,6 +101,11 @@ public class NinjaController extends  Controller implements Body {
         for(DartsController dartsController : this.dartsControllers){
             dartsController.draw(g);
         }
+        g.setFont(new Font("Bauhaus 93", Font.BOLD, 30));
+        g.setColor(Color.YELLOW);
+        g.drawString(String.valueOf(this.getLive()), 830, 85);
+        g.drawImage(Utils.loadImage("resources/ninja06.png"), 850, 60, 40, 40, null);
+
     }
     public void keyPressed(KeyEvent e){
         Vector<BufferedImage> bufferedImageVector = new Vector<>();
@@ -145,23 +156,35 @@ public class NinjaController extends  Controller implements Body {
                         this.inTree1 = 2;
                     }
                 }
-                if(keyCode==keySetting.getKeyUp()){
-                    this.getModel().move(0,-5);
-                }
-                if (keyCode==keySetting.getKeyDown()){
-                    this.getModel().move(0,7);
-                }
+
         }
     }
 
+    public int getHp() {
+        return hp;
+    }
 
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
 
     @Override
     public void onContact(Body other) {
         if(other instanceof BulletEnemyController||other instanceof EnemyController){
-            live--;
-            this.getModel().setAlive(false);
+            hp--;
+            if(hp==0) {
+                live--;
+                this.getModel().setAlive(false);
+                hp=5;
+            }
         }
     }
 }

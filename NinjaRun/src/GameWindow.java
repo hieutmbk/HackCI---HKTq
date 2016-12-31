@@ -1,6 +1,9 @@
 import Models.Model;
 import controllers.KeySetting;
 import controllers.NinjaController;
+import controllers.Scenes.GameScene;
+import controllers.Scenes.MenuScene;
+import controllers.Scenes.SceneListener;
 import controllers.enemies.BulletEnemyController;
 import controllers.managers.BodyManager;
 import controllers.managers.ControllerManager;
@@ -9,31 +12,29 @@ import controllers.managers.TreeManager;
 import utils.Utils;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Stack;
 
 
 /**
  * Created by minhh on 16/12/2016.
  */
-public class GameWindow extends Frame implements  Runnable {
-    Image background;
-    NinjaController ninjaController;
-    TreeManager treeManager;
+public class GameWindow extends Frame implements  Runnable, SceneListener {
+
+    GameScene currentScene;
+    Stack<GameScene> gameSceneStack;
+
     BufferedImage backBuffer;
-    EnemyControllerManager enemyControllerManager;
+
     public GameWindow() throws IOException {
-        treeManager = new TreeManager();
-        enemyControllerManager = new EnemyControllerManager();
-        treeManager.spawn();
-        ninjaController = NinjaController.instance;
+
+        gameSceneStack = new Stack<>();
+        this.replaceScene(new MenuScene(), false);
+
         setVisible(true);
         setSize(920,720);
-        background = Utils.loadImage("resources/sky-sheet1.png");
         backBuffer = new BufferedImage(920,720,BufferedImage.TYPE_INT_ARGB);
         addWindowListener(new WindowListener() {
             @Override
@@ -79,10 +80,35 @@ public class GameWindow extends Frame implements  Runnable {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                ninjaController.keyPressed(e);
+                currentScene.keyPressed(e);
             }
             @Override
             public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                currentScene.mouseClicked(e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
 
             }
         });
@@ -90,28 +116,27 @@ public class GameWindow extends Frame implements  Runnable {
 
     @Override
     public void update(Graphics g) {
-        if(ninjaController.getLive() > 0) {
-            Graphics backBufferGraphics = backBuffer.getGraphics();
-            backBufferGraphics.drawImage(background, 0, 0, 920, 720, null);
-            ninjaController.draw(backBufferGraphics);
-            treeManager.draw(backBufferGraphics);
-            enemyControllerManager.draw(backBufferGraphics);
-            ControllerManager.bulletEnemy.draw(backBufferGraphics);
+        Graphics backBufferGraphics = backBuffer.getGraphics();
+        currentScene.update(backBufferGraphics);
 
-            Font font = new Font("Bauhaus 93",Font.BOLD,40);
-            backBufferGraphics.setFont(font);
-            backBufferGraphics.setColor(Color.ORANGE);
-            backBufferGraphics.drawString(String.valueOf("Point : "+NinjaController.instance.point),20,100);
 
-            g.drawImage(backBuffer, 0, 0, 920, 720, null);
+        g.drawImage(backBuffer, 0, 0, 920, 720, null);
+
+
+    }
+
+    public void replaceScene(GameScene newScene, boolean addToBackStack){
+        if(addToBackStack && currentScene != null){
+            gameSceneStack.push(currentScene);
         }
-        else{
-            g.setFont(new Font("Algerian", Font.BOLD, 50));
-            g.setColor(Color.RED);
-            g.drawString("Game Over", 300, 400);
+        currentScene = newScene;
+        currentScene.setSceneListener(this);
+    }
+
+    public void back(){
+        if(!gameSceneStack.isEmpty()){
+            currentScene = gameSceneStack.pop();
         }
-
-
     }
 
     @Override
@@ -121,11 +146,7 @@ public class GameWindow extends Frame implements  Runnable {
             try {
                 this.repaint();
                 Thread.sleep(17);
-                ninjaController.run();
-                treeManager.run();
-                enemyControllerManager.run();
-                ControllerManager.bulletEnemy.run();
-                BodyManager.instance.checkContact();
+                currentScene.run();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -23,17 +23,18 @@ import java.util.Stack;
  * Created by minhh on 16/12/2016.
  */
 public class GameWindow extends Frame implements  Runnable, SceneListener {
-    BufferedImage backBuffer;
-    Stack<GameScene> gameSceneStack;
     GameScene currentScene;
+    Stack<GameScene> gameSceneStack;
+
+    BufferedImage backBuffer;
 
     public GameWindow() throws IOException {
+
         gameSceneStack = new Stack<>();
-        //GameScene currentScene = new MenuScene();
-        this.replaceScene(new MenuScene(),false);
+        this.replaceScene(new MenuScene(), false);
+
         setVisible(true);
         setSize(920,720);
-
         backBuffer = new BufferedImage(920,720,BufferedImage.TYPE_INT_ARGB);
         addWindowListener(new WindowListener() {
             @Override
@@ -71,7 +72,21 @@ public class GameWindow extends Frame implements  Runnable, SceneListener {
 
             }
         });
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
 
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                currentScene.keyPressed(e);
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -80,7 +95,6 @@ public class GameWindow extends Frame implements  Runnable, SceneListener {
 
             @Override
             public void mousePressed(MouseEvent e) {
-
             }
 
             @Override
@@ -98,34 +112,19 @@ public class GameWindow extends Frame implements  Runnable, SceneListener {
 
             }
         });
-
-        addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                currentScene.keyPress(e);
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
     }
 
     @Override
     public void update(Graphics g) {
         Graphics backBufferGraphics = backBuffer.getGraphics();
-        //dung currentScene ve len backBuffer
-        currentScene.draw(backBufferGraphics);
+        currentScene.update(backBufferGraphics);
+
+
         g.drawImage(backBuffer, 0, 0, 920, 720, null);
+
 
     }
 
-    @Override
     public void replaceScene(GameScene newScene, boolean addToBackStack){
         if(addToBackStack && currentScene != null){
             gameSceneStack.push(currentScene);
@@ -140,19 +139,20 @@ public class GameWindow extends Frame implements  Runnable, SceneListener {
         }
     }
 
-
     @Override
     public void run() {
-        while (true) {
 
-            try {
-                this.repaint();
-                Thread.sleep(17);
-                currentScene.run();
-                ControllerManager.bulletEnemy.run();
-                BodyManager.instance.checkContact();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        while (true) {
+            System.out.print(" ");
+            if(Model.onGame) {
+                try {
+                    this.repaint();
+                    Thread.sleep(17);
+                    currentScene.run();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     }
