@@ -14,6 +14,10 @@ import java.util.Vector;
 public class BodyManager implements BaseController {
     private Vector<Body> bodies;
 
+    public Vector<Body> getBodies() {
+        return bodies;
+    }
+
     public static final BodyManager instance = new BodyManager();
 
     private BodyManager(){

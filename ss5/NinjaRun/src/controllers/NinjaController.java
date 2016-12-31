@@ -27,14 +27,15 @@ public class NinjaController extends  Controller implements Body, BaseController
     public void setDartsControllers() {
         this.dartsControllers = new Vector<>();
     }
-
+    private int check =0;
     private int inTree1 = 0;
     private int count=0;
     private int count1=0;
+    private int timeFire = 0;
 
 
     public static final NinjaController instance = NinjaController.creatNinja(200, 550,
-            new KeySetting(KeyEvent.VK_F, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT));
+            new KeySetting(KeyEvent.VK_F, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_H));
 
     private NinjaController(Model model, BaseView view, KeySetting keySetting) {
         super(model, view);
@@ -98,7 +99,14 @@ public class NinjaController extends  Controller implements Body, BaseController
         g.setColor(Color.YELLOW);
         g.drawString(String.valueOf(Character.getLive()), 830, 85);
         g.drawImage(Utils.loadImage("resources/ninja06.png"), 850, 60, 40, 40, null);
-
+        if(this.check==1){
+            timeFire++;
+            g.drawImage(Utils.loadImage("resources/water.png"),NinjaController.instance.getModel().getX(), 0 , 100, NinjaController.instance.getModel().getY(), null );
+            if(timeFire>20){
+                check = 0;
+                timeFire=0;
+            }
+        }
     }
     public void keyPressed(KeyEvent e){
         Vector<BufferedImage> bufferedImageVector = new Vector<>();
@@ -111,6 +119,19 @@ public class NinjaController extends  Controller implements Body, BaseController
 
         if(keySetting != null && this.getModel().isAlive()){
             int keyCode = e.getKeyCode();
+            if(keyCode == keySetting.getKeyShootFire()){
+                if(Character.getMana() == 5){
+                    for(int i =0; i<BodyManager.instance.getBodies().size(); i++){
+                        if(BodyManager.instance.getBodies().get(i).getModel().getX() > NinjaController.instance.getModel().getX() && BodyManager.instance.getBodies().get(i).getModel().getX() < NinjaController.instance.getModel().getX() + 100 && BodyManager.instance.getBodies().get(i).getModel().getY() > 0&& BodyManager.instance.getBodies().get(i).getModel().getY() < NinjaController.instance.getModel().getY()){
+                            if(BodyManager.instance.getBodies().get(i) instanceof EnemyController || BodyManager.instance.getBodies().get(i) instanceof BulletEnemyController){
+                                BodyManager.instance.getBodies().get(i).getModel().setAlive(false);
+                                this.check = 1;
+                                Character.setMana(0);
+                            }
+                        }
+                    }
+                }
+            }
                 if(keyCode==keySetting.getKeyFire()){
                     DartsController dartsController = new DartsController(new Model(this.model.getX()+ 45, this.model.getY()-50, 8, 35 ), new View(Utils.loadImage("resources/darts.png")));
                     this.dartsControllers.add(dartsController);

@@ -7,11 +7,13 @@ public class KeySetting {
     private int keyFire;
     private int keyLeft;
     private int keyRight;
+    private int keyShootFire;
 
-    public KeySetting(int keyFire, int keyLeft, int keyRight) {
+    public KeySetting(int keyFire, int keyLeft, int keyRight, int keyShootFire) {
         this.keyFire = keyFire;
         this.keyLeft = keyLeft;
         this.keyRight = keyRight;
+        this.keyShootFire = keyShootFire;
     }
 
     public int getKeyFire() {
@@ -26,4 +28,7 @@ public class KeySetting {
         return keyRight;
     }
 
+    public int getKeyShootFire() {
+        return keyShootFire;
+    }
 }

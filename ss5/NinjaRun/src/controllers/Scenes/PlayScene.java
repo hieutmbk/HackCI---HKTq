@@ -59,6 +59,9 @@ public class PlayScene extends GameScene {
         if(e.getKeyCode() == KeyEvent.VK_P){
             Model.onGame = !Model.onGame;
         }
+        if(e.getKeyCode() == KeyEvent.VK_W){
+            this.sceneListener.replaceScene(new GameWinScene(),true);
+        }
     }
 
     @Override
