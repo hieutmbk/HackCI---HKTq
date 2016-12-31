@@ -40,6 +40,7 @@ public class NinjaController extends  Controller implements Body, BaseController
         super(model, view);
         Character.setHp(5);
         Character.setLive(3);
+        Character.setMana(0);
         BodyManager.instance.register(this);
         this.keySetting = keySetting;
         this.dartsControllers = new Vector<>();
@@ -160,6 +161,13 @@ public class NinjaController extends  Controller implements Body, BaseController
             if(Character.getHp()==0) {
                 Character.setLive(Character.getLive() - 1);
                 this.getModel().setAlive(false);
+                Character.setHp(5);
+            }
+            if(other instanceof EnemyController){
+                if(Character.getMana()<5){
+                    Character.setMana(Character.getMana()+1);
+                    System.out.println(Character.getMana());
+                }
             }
         }
     }

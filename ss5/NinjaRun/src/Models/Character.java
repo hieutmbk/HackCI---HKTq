@@ -5,6 +5,7 @@ package Models;
  */
 public class Character {
     private static int hp;
+    private static int mana;
     private static int live;
     private static int point;
     private static int maxCombo;
@@ -48,5 +49,13 @@ public class Character {
 
     public static void setMaxCombo(int maxCombo) {
         Character.maxCombo = maxCombo;
+    }
+
+    public static int getMana() {
+        return mana;
+    }
+
+    public static void setMana(int mana) {
+        Character.mana = mana;
     }
 }

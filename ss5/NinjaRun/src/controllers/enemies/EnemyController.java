@@ -92,7 +92,7 @@ public class EnemyController extends Controller implements Body {
     }
     @Override
     public void onContact(Body other) {
-        if(other instanceof Character || other instanceof DartsController){
+        if(other instanceof NinjaController || other instanceof DartsController){
             this.getModel().setAlive(false);
         }
     }

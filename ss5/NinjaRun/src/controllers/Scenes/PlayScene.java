@@ -40,14 +40,17 @@ public class PlayScene extends GameScene {
         for (BaseController baseController : this.baseControllers) {
             baseController.draw(g);
         }
-        Font font = new Font("Bauhaus 93", Font.BOLD, 40);
+        Font font = new Font("Bauhaus 93", Font.BOLD, 20);
         g.setFont(font);
         g.setColor(Color.ORANGE);
         g.drawString(String.valueOf("Point : " + Character.getPoint()), 20, 100);
         g.drawString(String.valueOf("HP : " + Character.getHp()), 20, 150);
-        g.drawString(String.valueOf("COMBO : " + Character.getMaxCombo()) ,20,200);
+        g.drawString(String.valueOf("MaxCOMBO : " + Character.getMaxCombo()) ,20,250);
+        g.drawString(String.valueOf("Mana : ") ,20,200);
         g.setColor(Color.red);
         g.drawString(String.valueOf("Combo x " + Character.getCombo()),350,700);
+        g.setColor(Color.blue);
+        g.fillRect(90,185,20*Character.getMana(),20);
     }
 
     @Override

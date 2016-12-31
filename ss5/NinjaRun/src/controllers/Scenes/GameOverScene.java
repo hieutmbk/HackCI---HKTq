@@ -54,8 +54,10 @@ public class GameOverScene extends GameScene {
         NinjaController.instance.getModel().setAlive(true);
         NinjaController.instance.setDartsControllers();
         Character.setLive(3);
+        Character.setHp(5);
         Character.setMaxCombo(0);
         Character.setCombo(0);
+        Character.setMana(0);
     }
     public void mouseClicked(MouseEvent e){
         if(checkMouse(e)){
