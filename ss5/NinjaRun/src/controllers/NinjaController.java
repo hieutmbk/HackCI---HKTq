@@ -120,6 +120,7 @@ public class NinjaController extends  Controller implements Body, BaseController
         if(keySetting != null && this.getModel().isAlive()){
             int keyCode = e.getKeyCode();
             if(keyCode == keySetting.getKeyShootFire()){
+                this.check = 1;
                 if(Character.getMana() == 5){
                     for(int i =0; i<BodyManager.instance.getBodies().size(); i++){
                         if(BodyManager.instance.getBodies().get(i).getModel().getX() > NinjaController.instance.getModel().getX() && BodyManager.instance.getBodies().get(i).getModel().getX() < NinjaController.instance.getModel().getX() + 100 && BodyManager.instance.getBodies().get(i).getModel().getY() > 0&& BodyManager.instance.getBodies().get(i).getModel().getY() < NinjaController.instance.getModel().getY()){
