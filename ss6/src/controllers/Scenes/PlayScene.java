@@ -7,6 +7,7 @@ import controllers.NinjaController;
 import controllers.managers.*;
 import utils.Utils;
 
+import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -66,11 +67,24 @@ public class PlayScene extends GameScene {
             else{
                 clip.setMicrosecondPosition(time);
                 clip.start();
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
             }
         }
         if(e.getKeyCode() == KeyEvent.VK_W){
             this.sceneListener.replaceScene(new GameWinScene(),true);
             clip.stop();
+        }
+        if(e.getKeyCode() == KeyEvent.VK_S){
+            Model.mute = !Model.mute;
+            BooleanControl muteControl;
+            muteControl = (BooleanControl) clip.getControl(BooleanControl.Type.MUTE);
+            if(Model.mute){
+                muteControl.setValue(true);
+            }
+            else{
+                muteControl.setValue(false);
+            }
+
         }
     }
 

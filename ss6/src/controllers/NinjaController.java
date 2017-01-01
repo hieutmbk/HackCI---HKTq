@@ -122,7 +122,8 @@ public class NinjaController extends  Controller implements Body, BaseController
             int keyCode = e.getKeyCode();
             if(keyCode == keySetting.getKeyShootFire()){
                 if(Character.getMana() == 5){
-                    Utils.playSound("resources/Laser.wav", false);
+                    if(!Model.mute)
+                        Utils.playSound("resources/Laser.wav", false);
                     check = 1;
                     Character.setMana(0);
                     for(int i =0; i<BodyManager.instance.getBodies().size(); i++){
@@ -137,7 +138,9 @@ public class NinjaController extends  Controller implements Body, BaseController
                 if(keyCode==keySetting.getKeyFire()){
                     DartsController dartsController = new DartsController(new Model(this.model.getX()+ 45, this.model.getY()-50, 8, 35 ), new View(Utils.loadImage("resources/darts.png")));
                     this.dartsControllers.add(dartsController);
-                    Utils.playSound("resources/Laser.wav", false);
+                    if(!Model.mute) {
+                        Utils.playSound("resources/Laser.wav", false);
+                    }
                 }
                 if(keyCode==keySetting.getKeyRight()){
                     if(TreeManager.instance.getStop()==0) {
@@ -190,7 +193,9 @@ public class NinjaController extends  Controller implements Body, BaseController
                 Character.setHp(5);
             }
             if(other instanceof EnemyController){
-                Utils.playSound("resources/Explosion.wav", false);
+                if(!Model.mute) {
+                    Utils.playSound("resources/Explosion.wav", false);
+                }
                 if(Character.getMana()<5){
                     Character.setMana(Character.getMana()+1);
                     System.out.println(Character.getMana());

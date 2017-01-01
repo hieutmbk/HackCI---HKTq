@@ -88,7 +88,8 @@ public class EnemyController extends Controller implements Body {
 
         if (shootBehavior != null ){
             shootBehavior.doShoot(this);
-            Utils.playSound("resources/shoot.wav", false);
+            if(!Model.mute)
+                Utils.playSound("resources/shoot.wav", false);
         }
     }
     @Override

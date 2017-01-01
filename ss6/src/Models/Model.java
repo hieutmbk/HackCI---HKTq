@@ -12,6 +12,7 @@ public class Model {
     private int height;
     private boolean alive = true;
     public static boolean onGame = true;
+    public static boolean mute = false;
 
     public Model(int x, int y, int width, int height) {
         this.x = x;
