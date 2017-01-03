@@ -22,6 +22,7 @@ public class PlayScene extends GameScene {
     Image background;
     Clip clip;
     long time;
+    int count;
     public PlayScene(){
         baseControllers = new Vector<>();
         baseControllers.add(GiftControllerManager.instance);
@@ -90,12 +91,17 @@ public class PlayScene extends GameScene {
 
     @Override
     public void run() {
+        count++;
         for(BaseController baseController : this.baseControllers){
             baseController.run();
         }
+        if(count >= 1000 && Model.SPEED <10){
+            Model.SPEED++;
+            count = 0;
+        }
         if(Character.getLive()<1){
             this.sceneListener.replaceScene(new GameOverScene(), true);
-            Character.setPoint(0);
+
         }
 
     }

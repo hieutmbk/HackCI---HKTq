@@ -40,7 +40,7 @@ public class NinjaController extends  Controller implements Body, BaseController
 
     private NinjaController(Model model, BaseView view, KeySetting keySetting) {
         super(model, view);
-        Character.setHp(5);
+        Character.setHp(2);
         Character.setLive(3);
         Character.setMana(0);
         BodyManager.instance.register(this);
@@ -74,13 +74,13 @@ public class NinjaController extends  Controller implements Body, BaseController
                 count = 0;
                 this.getModel().setAlive(true);
                 BodyManager.instance.register(this);
-                Character.setHp(5);
+                Character.setHp(2);
             }
         }
         else if(getModel().isAlive()){
             count1 ++;
             if(count1 % 58 == 0){
-                Character.setPoint(Character.getPoint() + 1);
+                Character.setPoint(Character.getPoint() + Character.getCombo()+1);
                 count1 = 0;
             }
         }
@@ -190,7 +190,7 @@ public class NinjaController extends  Controller implements Body, BaseController
             if(Character.getHp()==0) {
                 Character.setLive(Character.getLive() - 1);
                 this.getModel().setAlive(false);
-                Character.setHp(5);
+                Character.setHp(2);
             }
             if(other instanceof EnemyController){
                 if(!Model.mute) {

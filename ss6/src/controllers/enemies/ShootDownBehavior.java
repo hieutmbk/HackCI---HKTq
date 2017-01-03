@@ -13,7 +13,7 @@ public class ShootDownBehavior implements ShootBehavior {
         int y = enemyController.getModel().getBottom();
         BulletEnemyController bulletEnemyController = BulletEnemyController.create(x, y);
         bulletEnemyController.dx = 0;
-        bulletEnemyController.dy = 5;
+        bulletEnemyController.dy = Model.SPEED + 4;
         ControllerManager.bulletEnemy.add(bulletEnemyController);
 
     }
