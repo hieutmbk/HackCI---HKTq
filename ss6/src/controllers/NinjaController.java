@@ -33,6 +33,8 @@ public class NinjaController extends  Controller implements Body, BaseController
     private int count=0;
     private int count1=0;
     private int timeFire = 0;
+    Vector<BufferedImage> bufferedImageVector = new Vector<>();
+    Vector<BufferedImage> bufferedImageVector1 = new Vector<>();
 
 
     public static final NinjaController instance = NinjaController.creatNinja(200, 550,
@@ -40,17 +42,43 @@ public class NinjaController extends  Controller implements Body, BaseController
 
     private NinjaController(Model model, BaseView view, KeySetting keySetting) {
         super(model, view);
-        Character.setHp(2);
+        Character.setHp(5);
         Character.setLive(3);
         Character.setMana(0);
         BodyManager.instance.register(this);
         this.keySetting = keySetting;
         this.dartsControllers = new Vector<>();
+        bufferedImageVector.add(Utils.loadImage("resources/Run01.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run02.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run03.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run04.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run05.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run06.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run07.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run08.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run09.png"));
+
+        bufferedImageVector1.add(Utils.loadImage("resources/Run1.png"));
+        bufferedImageVector1.add(Utils.loadImage("resources/Run2.png"));
+        bufferedImageVector1.add(Utils.loadImage("resources/Run3.png"));
+        bufferedImageVector1.add(Utils.loadImage("resources/Run4.png"));
+        bufferedImageVector1.add(Utils.loadImage("resources/Run5.png"));
+        bufferedImageVector1.add(Utils.loadImage("resources/Run6.png"));
+        bufferedImageVector1.add(Utils.loadImage("resources/Run7.png"));
+        bufferedImageVector1.add(Utils.loadImage("resources/Run8.png"));
+        bufferedImageVector1.add(Utils.loadImage("resources/Run9.png"));
     }
     private static NinjaController creatNinja(int x, int y, KeySetting keySetting){
         Vector<BufferedImage> bufferedImageVector = new Vector<>();
-        bufferedImageVector.add(Utils.loadImage("resources/ninjarun1.png"));
-        bufferedImageVector.add(Utils.loadImage("resources/ninjarun2.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run1.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run2.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run3.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run4.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run5.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run6.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run7.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run8.png"));
+        bufferedImageVector.add(Utils.loadImage("resources/Run9.png"));
 
         NinjaController ninjaController = new NinjaController(
                 new Model(x,y,100,60),
@@ -74,7 +102,7 @@ public class NinjaController extends  Controller implements Body, BaseController
                 count = 0;
                 this.getModel().setAlive(true);
                 BodyManager.instance.register(this);
-                Character.setHp(2);
+                Character.setHp(5);
             }
         }
         else if(getModel().isAlive()){
@@ -110,13 +138,6 @@ public class NinjaController extends  Controller implements Body, BaseController
         }
     }
     public void keyPressed(KeyEvent e){
-        Vector<BufferedImage> bufferedImageVector = new Vector<>();
-        bufferedImageVector.add(Utils.loadImage("resources/ninjarun01.png"));
-        bufferedImageVector.add(Utils.loadImage("resources/ninjarun02.png"));
-
-        Vector<BufferedImage> bufferedImageVector1 = new Vector<>();
-        bufferedImageVector1.add(Utils.loadImage("resources/ninjarun1.png"));
-        bufferedImageVector1.add(Utils.loadImage("resources/ninjarun2.png"));
 
         if(keySetting != null && this.getModel().isAlive()){
             int keyCode = e.getKeyCode();
@@ -190,7 +211,7 @@ public class NinjaController extends  Controller implements Body, BaseController
             if(Character.getHp()==0) {
                 Character.setLive(Character.getLive() - 1);
                 this.getModel().setAlive(false);
-                Character.setHp(2);
+                Character.setHp(5);
             }
             if(other instanceof EnemyController){
                 if(!Model.mute) {

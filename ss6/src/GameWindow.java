@@ -144,7 +144,7 @@ public class GameWindow extends Frame implements  Runnable, SceneListener {
 
 
         while (true) {
-            System.out.print(" ");
+            System.out.print("");
             if(Model.onGame) {
                 try {
                     this.repaint();

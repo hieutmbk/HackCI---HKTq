@@ -18,6 +18,9 @@ public class DartsController extends Controller implements Body, BaseController{
     public void run(){
         super.run();
         this.model.move(0, -5);
+        if(this.model.getY() < 0){
+            this.getModel().setAlive(false);
+        }
     }
 
     @Override
