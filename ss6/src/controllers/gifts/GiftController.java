@@ -44,8 +44,11 @@ public class GiftController extends Controller implements Body, BaseController {
             if(Character.getMana() <5 && this.type == 2) {
                 Character.setMana(Character.getMana()+1);
             }
-            if(Character.getHp() <5 && this.type == 1) {
-                Character.setHp(Character.getHp()+1);
+            if(this.type == 1) {
+                if (Character.getHp() <5) {
+                    Character.setHp(Character.getHp() + 1);
+                }
+                NinjaController.instance.setCountDart(NinjaController.instance.getCountDart() + 1);
             }
 
             this.getModel().setAlive(false);

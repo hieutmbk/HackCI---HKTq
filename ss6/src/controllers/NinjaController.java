@@ -24,6 +24,15 @@ import java.util.Vector;
 public class NinjaController extends  Controller implements Body, BaseController {
     private KeySetting keySetting;
     private Vector<DartsController> dartsControllers;
+    private int countDart;
+
+    public int getCountDart() {
+        return countDart;
+    }
+
+    public void setCountDart(int countDart) {
+        this.countDart = countDart;
+    }
 
     public void setDartsControllers() {
         this.dartsControllers = new Vector<>();
@@ -127,7 +136,9 @@ public class NinjaController extends  Controller implements Body, BaseController
         g.setFont(new Font("Bauhaus 93", Font.BOLD, 30));
         g.setColor(Color.YELLOW);
         g.drawString(String.valueOf(Character.getLive()), 830, 85);
+        g.drawString(String.valueOf(countDart), 830, 135);
         g.drawImage(Utils.loadImage("resources/ninja06.png"), 850, 60, 40, 40, null);
+        g.drawImage(Utils.loadImage("resources/darts.png"),860,100,20,40,null);
         if(this.check==1){
             timeFire++;
             g.drawImage(Utils.loadImage("resources/water.png"),NinjaController.instance.getModel().getX(), 0 , 100, NinjaController.instance.getModel().getY(), null );
@@ -157,10 +168,13 @@ public class NinjaController extends  Controller implements Body, BaseController
                 }
             }
                 if(keyCode==keySetting.getKeyFire()){
-                    DartsController dartsController = new DartsController(new Model(this.model.getX()+ 45, this.model.getY()-50, 8, 35 ), new View(Utils.loadImage("resources/darts.png")));
-                    this.dartsControllers.add(dartsController);
-                    if(!Model.mute) {
-                        Utils.playSound("resources/Laser.wav", false);
+                    if(countDart>0) {
+                        DartsController dartsController = new DartsController(new Model(this.model.getX() + 45, this.model.getY() - 50, 8, 35), new View(Utils.loadImage("resources/darts.png")));
+                        this.dartsControllers.add(dartsController);
+                        if (!Model.mute) {
+                            Utils.playSound("resources/Laser.wav", false);
+                        }
+                        countDart--;
                     }
                 }
                 if(keyCode==keySetting.getKeyRight()){

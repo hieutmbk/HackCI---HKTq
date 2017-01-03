@@ -64,6 +64,7 @@ public class GameOverScene extends GameScene {
         Character.setPoint(0);
         Model.SPEED = 3;
         TrapControllerManager.instance.removeAll();
+        NinjaController.instance.setCountDart(0);
     }
     public void mouseClicked(MouseEvent e){
         if(checkMouse(e)){
